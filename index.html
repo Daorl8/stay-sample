@@ -134,6 +134,35 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
   align-items:center;flex-wrap:wrap;gap:12px;color:var(--muted);font-size:.8rem;max-width:var(--maxw);margin:0 auto}
 .foot .serif{font-size:1.1rem;letter-spacing:.18em;color:var(--text)}
 
+/* ---------- GALLERY (실제 공간) ---------- */
+.gallery__grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:198px;grid-auto-flow:dense;gap:12px;margin-top:50px}
+.gallery__item{overflow:hidden;cursor:pointer;background:var(--surface);border:1px solid var(--line)}
+.gallery__item img{width:100%;height:100%;object-fit:cover;transition:transform .8s,opacity .4s;opacity:.92}
+.gallery__item:hover img{transform:scale(1.05);opacity:1}
+.gallery__item.wide{grid-column:span 2}
+.gallery__item.tall{grid-row:span 2}
+.gallery__cap{margin-top:24px;color:var(--muted);font-size:.84rem;border-top:1px solid var(--line);padding-top:16px;display:flex;justify-content:space-between}
+
+/* ---------- INFORMATION (편의시설·이용규칙·환불) ---------- */
+.info__grid{display:grid;grid-template-columns:1fr 1fr;gap:46px 70px;margin-top:50px}
+.info__block h3{font-family:var(--serif);font-weight:300;font-size:1.5rem;margin-bottom:18px;color:var(--text)}
+.info__block ul{list-style:none;display:grid;gap:11px}
+.info__block li{color:var(--muted);font-size:.95rem;padding-left:18px;position:relative}
+.info__block li::before{content:"–";position:absolute;left:0;color:var(--gold)}
+.refund{grid-column:1 / -1}
+.refund h3{font-family:var(--serif);font-weight:300;font-size:1.5rem;margin-bottom:8px}
+.refund table{width:100%;border-collapse:collapse;margin-top:6px;font-size:.93rem;max-width:560px}
+.refund th,.refund td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line)}
+.refund th{color:var(--gold);font-weight:600;font-size:.82rem;letter-spacing:.04em}
+.refund td:last-child,.refund th:last-child{text-align:right}
+.info__note{grid-column:1 / -1;color:var(--muted);font-size:.86rem;margin-top:14px;line-height:1.7;border-top:1px solid var(--line);padding-top:18px}
+
+/* ---------- 라이트박스 ---------- */
+.lightbox{position:fixed;inset:0;background:rgba(10,9,7,.95);z-index:90;display:none;align-items:center;justify-content:center;padding:30px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:88vh;object-fit:contain}
+.lightbox__close{position:absolute;top:20px;right:28px;color:var(--text);font-size:1.8rem;cursor:pointer;background:none;border:none;line-height:1}
+
 /* ---------- 모바일 하단 퀵바 ---------- */
 .mbar{display:none}
 
@@ -157,6 +186,10 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
   .fb__body{padding:48px 24px}
   .night__grid{grid-template-columns:1fr;gap:18px}
   .details__grid,.reserve__grid,.location__grid{grid-template-columns:1fr;gap:36px}
+  .gallery__grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:148px;gap:8px}
+  .gallery__item.wide{grid-column:span 2}.gallery__item.tall{grid-row:span 1}
+  .info__grid{grid-template-columns:1fr;gap:34px}
+  .refund table{font-size:.88rem}
   .field--row{grid-template-columns:1fr}
   .foot{padding:30px 22px}
   body{padding-bottom:62px}
@@ -174,8 +207,9 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
   <a class="topnav__brand" href="#hero">GOYO</a>
   <nav class="topnav__links">
     <a href="#space">공간</a>
-    <a href="#night">하룻밤</a>
+    <a href="#gallery">갤러리</a>
     <a href="#details">안내</a>
+    <a href="#info">이용·약관</a>
     <a href="#location">오시는 길</a>
     <a href="#reserve" class="topnav__cta">예약 문의</a>
   </nav>
@@ -250,6 +284,24 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
   </div>
 </section>
 
+<!-- ===== GALLERY (실제 공간) ===== -->
+<section class="section gallery reveal" id="gallery">
+  <p class="eyebrow">Gallery</p>
+  <h2 class="h2">공간을 미리 둘러보기</h2>
+  <p class="lead">연출이 아닌, 실제 머무실 공간입니다. 충분히 살펴보고 예약하세요.</p>
+  <div class="gallery__grid">
+    <figure class="gallery__item wide tall" data-full="https://images.unsplash.com/photo-1592990379716-aec6e89a6a69?auto=format&fit=crop&w=1600&q=80"><img src="https://images.unsplash.com/photo-1592990379716-aec6e89a6a69?auto=format&fit=crop&w=900&q=80" alt="거실 전경" loading="lazy"></figure>
+    <figure class="gallery__item" data-full="https://images.unsplash.com/photo-1631756964162-25c8c07579b5?auto=format&fit=crop&w=1600&q=80"><img src="https://images.unsplash.com/photo-1631756964162-25c8c07579b5?auto=format&fit=crop&w=900&q=80" alt="주방" loading="lazy"></figure>
+    <figure class="gallery__item" data-full="https://images.unsplash.com/photo-1586602771566-960663e24b49?auto=format&fit=crop&w=1600&q=80"><img src="https://images.unsplash.com/photo-1586602771566-960663e24b49?auto=format&fit=crop&w=900&q=80" alt="욕실" loading="lazy"></figure>
+    <figure class="gallery__item tall" data-full="https://images.unsplash.com/photo-1670914120781-4b7c8512fc41?auto=format&fit=crop&w=1600&q=80"><img src="https://images.unsplash.com/photo-1670914120781-4b7c8512fc41?auto=format&fit=crop&w=900&q=80" alt="테라스" loading="lazy"></figure>
+    <figure class="gallery__item" data-full="https://images.unsplash.com/photo-1651823130579-8b83410fbd95?auto=format&fit=crop&w=1600&q=80"><img src="https://images.unsplash.com/photo-1651823130579-8b83410fbd95?auto=format&fit=crop&w=900&q=80" alt="침실" loading="lazy"></figure>
+    <figure class="gallery__item wide" data-full="https://images.unsplash.com/photo-1551053343-65678990726b?auto=format&fit=crop&w=1600&q=80"><img src="https://images.unsplash.com/photo-1551053343-65678990726b?auto=format&fit=crop&w=900&q=80" alt="거실 와이드" loading="lazy"></figure>
+    <figure class="gallery__item" data-full="https://images.unsplash.com/photo-1639587782811-94df2ea812fb?auto=format&fit=crop&w=1600&q=80"><img src="https://images.unsplash.com/photo-1639587782811-94df2ea812fb?auto=format&fit=crop&w=900&q=80" alt="다이닝" loading="lazy"></figure>
+    <figure class="gallery__item" data-full="https://images.unsplash.com/photo-1618849055111-13c66a477b6a?auto=format&fit=crop&w=1600&q=80"><img src="https://images.unsplash.com/photo-1618849055111-13c66a477b6a?auto=format&fit=crop&w=900&q=80" alt="창가" loading="lazy"></figure>
+  </div>
+  <div class="gallery__cap"><span>거실 · 침실 · 욕실 · 주방 · 테라스</span><span>탭하면 크게 보여요</span></div>
+</section>
+
 <!-- ===== DETAILS ===== -->
 <section class="section details reveal" id="details">
   <p class="eyebrow">Details</p>
@@ -272,6 +324,50 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
         <li>주말·성수기 요금 상이 (문의)</li>
       </ul>
       <a href="#reserve" class="btn btn--gold" style="justify-content:center">예약 문의하기</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INFORMATION (편의시설·이용규칙·환불) ===== -->
+<section class="section info reveal" id="info">
+  <p class="eyebrow">Information</p>
+  <h2 class="h2">이용 안내 · 약관</h2>
+  <div class="info__grid">
+    <div class="info__block">
+      <h3>편의시설</h3>
+      <ul>
+        <li>화목 난로 · 통창 욕조 · 전용 테라스</li>
+        <li>주방(인덕션 · 냉장고 · 기본 조리도구)</li>
+        <li>구스 침구 · 냉난방 · 무선 인터넷</li>
+        <li>웰컴 티 · 핸드드립 세트 · 조식 바스켓</li>
+        <li>욕실용품(샴푸 · 바디워시 · 수건) · 드라이어</li>
+        <li>독채 앞 전용 주차 1대</li>
+      </ul>
+    </div>
+    <div class="info__block">
+      <h3>이용 규칙</h3>
+      <ul>
+        <li>입실 15:00 / 퇴실 11:00</li>
+        <li>기준 2인 / 최대 4인 · 1팀 단독 (초과 인원 불가)</li>
+        <li>전 공간 금연 (실외 지정 장소만 가능)</li>
+        <li>반려동물은 소형견 1마리 사전 협의 시 동반</li>
+        <li>밤 10시 이후 매너타임 · 파티 / 행사 목적 예약 불가</li>
+        <li>난로 · 화기는 안내된 방법으로만 사용</li>
+      </ul>
+    </div>
+    <div class="refund">
+      <h3>환불 규정</h3>
+      <table>
+        <thead><tr><th>취소 시점</th><th>환불 금액</th></tr></thead>
+        <tbody>
+          <tr><td>이용 10일 전까지</td><td>100% 환불</td></tr>
+          <tr><td>이용 7일 전까지</td><td>70% 환불</td></tr>
+          <tr><td>이용 5일 전까지</td><td>50% 환불</td></tr>
+          <tr><td>이용 3일 전까지</td><td>30% 환불</td></tr>
+          <tr><td>이용 1일 전 · 당일 · 노쇼</td><td>환불 불가</td></tr>
+        </tbody>
+      </table>
+      <p class="info__note">※ 본 약관은 샘플 예시입니다. 천재지변 · 성수기 · 연박 등 조건에 따라 달라질 수 있으며, 예약 시 안내되는 정확한 규정이 우선합니다. 예약은 문의 후 예약금 입금으로 확정됩니다.</p>
     </div>
   </div>
 </section>
@@ -328,6 +424,9 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
   <span><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a> · <a href="https://booking.naver.com" target="_blank" rel="noopener">네이버 예약</a></span>
 </footer>
 
+<!-- 라이트박스 -->
+<div class="lightbox" id="lightbox"><button class="lightbox__close" aria-label="닫기">&times;</button><img src="" alt="공간 확대 이미지"></div>
+
 <!-- 모바일 하단 퀵바 (div) -->
 <div class="mbar">
   <a class="tel" href="tel:01000000000">전화</a>
@@ -344,6 +443,11 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
   var menuBtn=document.querySelector('.topnav__menu'), links=document.querySelector('.topnav__links');
   if(menuBtn){ menuBtn.addEventListener('click',function(){ links.classList.toggle('open'); }); }
   document.querySelectorAll('.topnav__links a').forEach(function(a){ a.addEventListener('click',function(){ links.classList.remove('open'); }); });
+
+  // 라이트박스
+  var lb=document.getElementById('lightbox'), lbImg=lb?lb.querySelector('img'):null;
+  document.querySelectorAll('.gallery__item').forEach(function(f){ f.addEventListener('click',function(){ if(lbImg){ lbImg.src=f.getAttribute('data-full'); lb.classList.add('open'); } }); });
+  if(lb){ function closeLb(){ lb.classList.remove('open'); lbImg.src=''; } lb.addEventListener('click',closeLb); document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeLb(); }); }
 
   if(window.matchMedia('(min-width:861px)').matches && 'IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } }); },{threshold:.12});
