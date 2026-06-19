@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <style>
 :root{
-  --bg:#14130F; --surface:#1E1C17; --text:#EDE7DB; --muted:#A29C8C;
+  --bg:#14130F; --surface:#1E1C17; --text:#EDE7DB; --muted:#BFB7A5;
   --gold:#B89160; --gold-d:#9A774B; --line:#33302A; --maxw:1240px;
   --serif:"Cormorant Garamond",serif;
   --sans:"Pretendard","Pretendard Variable",system-ui,sans-serif;
@@ -84,7 +84,7 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
 
 /* ---------- 리빌(데스크탑 전용) ---------- */
 @media (min-width:861px){
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity 1s ease,transform 1s ease}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .45s ease,transform .45s ease}
   .reveal.in{opacity:1;transform:none}
 }
 
@@ -491,6 +491,14 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
         .finally(reset);
     });
   });
+})();
+</script>
+<script>
+/* reveal 안전장치: 화면 내 요소 강제 노출(숨김/백그라운드 탭 대비, 스크롤 효과 유지) */
+(function(){
+  function rv(){var els=document.querySelectorAll('.reveal:not(.in)');for(var i=0;i<els.length;i++){var r=els[i].getBoundingClientRect();if(r.top<innerHeight*0.92&&r.bottom>0)els[i].classList.add('in');}}
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)setTimeout(rv,60);});
+  window.addEventListener('load',function(){setTimeout(rv,1200);});
 })();
 </script>
 </body>
