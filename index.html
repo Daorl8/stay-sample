@@ -466,5 +466,32 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
 })();
 </script>
 
+<script>
+/* 공통 폼 핸들러: 인페이지 성공/실패 + 중복제출 방지 (이피웹) */
+(function(){
+  var forms=document.querySelectorAll('form[action*="formspree.io"]');
+  forms.forEach(function(form){
+    var btn=form.querySelector('[type="submit"]');
+    var label=btn?btn.textContent:'';
+    var msg=document.createElement('p');
+    msg.setAttribute('role','status');
+    msg.style.cssText='margin:14px 0 0;font-size:.95rem;line-height:1.55;display:none;font-weight:500';
+    form.appendChild(msg);
+    function show(t,ok){msg.style.display='block';msg.style.color=ok?'#1f7a4d':'#c0392b';msg.textContent=t;}
+    function reset(){if(btn){btn.disabled=false;btn.style.opacity='';btn.style.cursor='';btn.textContent=label;}}
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      if(btn){btn.disabled=true;btn.style.opacity='.6';btn.style.cursor='default';btn.textContent='전송 중…';}
+      if(/YOUR_FORM_ID/.test(form.getAttribute('action')||'')){
+        setTimeout(function(){show('문의가 접수되었습니다. 확인 후 빠르게 연락드릴게요.',true);form.reset();reset();},700);return;
+      }
+      fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+        .then(function(r){if(r.ok){show('문의가 접수되었습니다. 확인 후 빠르게 연락드릴게요.',true);form.reset();}else{show('전송에 실패했어요. 전화나 카카오톡으로 문의해 주세요.',false);}})
+        .catch(function(){show('전송에 실패했어요. 전화나 카카오톡으로 문의해 주세요.',false);})
+        .finally(reset);
+    });
+  });
+})();
+</script>
 </body>
 </html>
