@@ -210,8 +210,8 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
 }
 
 /* ===== FX START (GOYO 효과 — 롤백: FX START~FX END 블록[CSS]·HTML/JS의 FX블록 삭제) ===== */
-@media (min-width:861px) and (prefers-reduced-motion:no-preference){
-  /* 챕터 전환: 풀블리드 미디어가 스케일·페이드로 열림 */
+@media (min-width:861px){
+  /* 챕터 전환: 풀블리드 미디어가 스케일·페이드로 열림 (데모용: reduced-motion에서도 동작) */
   .fx-chapter img{transform:scale(1.14);opacity:.32;transition:transform 1.15s cubic-bezier(.16,.8,.24,1),opacity 1.15s ease;will-change:transform,opacity}
   .fx-chapter.in img{transform:scale(1);opacity:1}
   /* 텍스트 스태거: 줄/단어가 아래에서 올라옴 */
@@ -516,9 +516,8 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
 <!-- FX START (GOYO: 시네마틱 패럴랙스 + 챕터 전환 + 텍스트 스태거 — 롤백: 이 script + CSS의 FX블록 삭제) -->
 <script>
 (function(){
-  var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
   var DESK=matchMedia('(min-width:861px)').matches;
-  if(RM||!DESK) return;
+  if(!DESK) return; /* 데모용: reduced-motion에서도 동작 (실고객 사이트에선 RM 재존중) */
 
   /* 1) 시네마틱 패럴랙스 (히어로 배경) */
   var hImg=document.querySelector('.hero__media img');
