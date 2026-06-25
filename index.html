@@ -208,6 +208,17 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
   .mbar a.tel{background:var(--surface);color:var(--text)}
   .mbar a.res{background:var(--gold);color:var(--bg)}
 }
+
+/* ===== FX START (GOYO 효과 — 롤백: FX START~FX END 블록[CSS]·HTML/JS의 FX블록 삭제) ===== */
+@media (min-width:861px) and (prefers-reduced-motion:no-preference){
+  /* 챕터 전환: 풀블리드 미디어가 스케일·페이드로 열림 */
+  .fx-chapter img{transform:scale(1.14);opacity:.32;transition:transform 1.15s cubic-bezier(.16,.8,.24,1),opacity 1.15s ease;will-change:transform,opacity}
+  .fx-chapter.in img{transform:scale(1);opacity:1}
+  /* 텍스트 스태거: 줄/단어가 아래에서 올라옴 */
+  .fx-stagger .fx-rise{display:inline-block;transform:translateY(118%);opacity:0;transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .8s}
+  .fx-stagger.in .fx-rise{transform:none;opacity:1}
+}
+/* ===== FX END ===== */
 </style>
 </head>
 <body>
@@ -501,5 +512,57 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
   window.addEventListener('load',function(){setTimeout(rv,1200);});
 })();
 </script>
+
+<!-- FX START (GOYO: 시네마틱 패럴랙스 + 챕터 전환 + 텍스트 스태거 — 롤백: 이 script + CSS의 FX블록 삭제) -->
+<script>
+(function(){
+  var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var DESK=matchMedia('(min-width:861px)').matches;
+  if(RM||!DESK) return;
+
+  /* 1) 시네마틱 패럴랙스 (히어로 배경) */
+  var hImg=document.querySelector('.hero__media img');
+  if(hImg){
+    hImg.style.willChange='transform';
+    var onP=function(){ var y=window.scrollY; if(y<innerHeight*1.25){ hImg.style.transform='translateY('+(y*0.28)+'px) scale(1.18)'; } };
+    addEventListener('scroll',onP,{passive:true}); onP();
+  }
+
+  /* 2) 챕터 전환 (풀블리드 .fb 미디어) */
+  var chapters=document.querySelectorAll('.fb__media');
+  chapters.forEach(function(m){ m.classList.add('fx-chapter'); });
+  if('IntersectionObserver' in window){
+    var cio=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); cio.unobserve(e.target);} });},{threshold:.2});
+    chapters.forEach(function(m){ cio.observe(m); });
+  }
+  var crv=function(){ document.querySelectorAll('.fx-chapter:not(.in)').forEach(function(m){ var r=m.getBoundingClientRect(); if(r.top<innerHeight*0.9&&r.bottom>0) m.classList.add('in'); }); };
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)setTimeout(crv,60);});
+  addEventListener('load',function(){setTimeout(crv,1300);});
+
+  /* 3) 텍스트 스태거 (히어로 타이틀 + 섹션 h2) */
+  var heroT=document.querySelector('.hero__title');
+  if(heroT){
+    var parts=heroT.innerHTML.split(/<br\s*\/?>/i);
+    heroT.innerHTML=parts.map(function(p,i){ return '<span class="fx-rise" style="transition-delay:'+(i*0.14)+'s">'+p+'</span>'; }).join('<br>');
+    heroT.classList.add('fx-stagger');
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ heroT.classList.add('in'); }); });
+  }
+  var heads=[].slice.call(document.querySelectorAll('.h2'));
+  heads.forEach(function(h){
+    if(h.children.length) return;
+    var words=h.textContent.trim().split(/\s+/);
+    h.innerHTML=words.map(function(w,i){ return '<span class="fx-rise" style="transition-delay:'+(i*0.07)+'s">'+w+'</span>'; }).join(' ');
+    h.classList.add('fx-stagger');
+  });
+  if('IntersectionObserver' in window){
+    var hio=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); hio.unobserve(e.target);} });},{threshold:.3});
+    heads.forEach(function(h){ hio.observe(h); });
+  }
+  var hrv=function(){ document.querySelectorAll('.h2.fx-stagger:not(.in)').forEach(function(h){ var r=h.getBoundingClientRect(); if(r.top<innerHeight*0.92&&r.bottom>0) h.classList.add('in'); }); };
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)setTimeout(hrv,60);});
+  addEventListener('load',function(){setTimeout(hrv,1300);});
+})();
+</script>
+<!-- FX END -->
 </body>
 </html>
