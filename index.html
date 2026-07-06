@@ -176,8 +176,10 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
 /* ---------- 모바일 하단 퀵바 ---------- */
 .mbar{display:none}
 
+.mbr{display:none}
 /* ================= 반응형 ≤860px ================= */
 @media (max-width:860px){
+  .mbr{display:inline}
   .topnav{padding:16px 20px}
   .topnav.scrolled{padding:12px 20px}
   .topnav__links{position:fixed;inset:0;background:rgba(20,19,15,.98);flex-direction:column;
@@ -289,7 +291,7 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
     <div class="fb__body">
       <span class="num">04 — 테라스</span>
       <h3>경계 없는 바깥</h3>
-      <p>난간 너머로 이어지는 숲.<br>아침이면 안개가, 밤이면 별이 내려앉는 단 한 팀의 마당.</p>
+      <p>난간 너머로 이어지는 숲.<br>아침이면 안개가, 밤이면 별이 내려앉는<br class="mbr">단 한 팀의 마당.</p>
     </div>
   </div>
 </section>
@@ -309,7 +311,7 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
 <section class="section gallery reveal" id="gallery">
   <p class="eyebrow">Gallery</p>
   <h2 class="h2">공간을 미리 둘러보기</h2>
-  <p class="lead">연출이 아닌, 실제 머무실 공간입니다. 충분히 살펴보고 예약하세요.</p>
+  <p class="lead">연출이 아닌, 실제 머무실 공간입니다.<br class="mbr">충분히 살펴보고 예약하세요.</p>
   <div class="gallery__grid">
     <figure class="gallery__item wide tall" data-full="photo-1592990379716-aec6e89a6a69.jpg"><img src="photo-1592990379716-aec6e89a6a69.jpg" alt="거실 전경" loading="lazy"></figure>
     <figure class="gallery__item" data-full="photo-1631756964162-25c8c07579b5.jpg"><img src="photo-1631756964162-25c8c07579b5.jpg" alt="주방" loading="lazy"></figure>
