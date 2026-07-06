@@ -236,7 +236,7 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
     <a href="#location">오시는 길</a>
     <a href="#reserve" class="topnav__cta">예약 문의</a>
   </nav>
-  <button class="topnav__menu" aria-label="메뉴">메뉴</button>
+  <button class="topnav__menu" aria-label="메뉴" aria-expanded="false">메뉴</button>
 </header>
 
 <!-- ===== HERO ===== -->
@@ -464,8 +464,8 @@ h1,h2,h3{font-weight:400;line-height:1.14;letter-spacing:.01em}
   window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
 
   var menuBtn=document.querySelector('.topnav__menu'), links=document.querySelector('.topnav__links');
-  if(menuBtn){ menuBtn.addEventListener('click',function(){ links.classList.toggle('open'); }); }
-  document.querySelectorAll('.topnav__links a').forEach(function(a){ a.addEventListener('click',function(){ links.classList.remove('open'); }); });
+  if(menuBtn){ menuBtn.addEventListener('click',function(){ menuBtn.setAttribute('aria-expanded', links.classList.toggle('open')); }); }
+  document.querySelectorAll('.topnav__links a').forEach(function(a){ a.addEventListener('click',function(){ links.classList.remove('open'); if(menuBtn)menuBtn.setAttribute('aria-expanded','false'); }); });
 
   // 라이트박스
   var lb=document.getElementById('lightbox'), lbImg=lb?lb.querySelector('img'):null;
